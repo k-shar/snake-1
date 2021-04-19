@@ -85,6 +85,7 @@ class AspectWindow:
 
 
 class TextWindow(AspectWindow):
+    """Aspect window with text as tall as the height of the surface"""
     def __init__(self, color, aspect_ratio: tuple, pos: tuple, padding: float, text: str):
         super().__init__(color, aspect_ratio, pos, padding)
         self.text = text
@@ -96,3 +97,11 @@ class TextWindow(AspectWindow):
         text_surf, text_rect = self.font.render(self.text, fgcolor=(255, 255, 255))
         self.image.blit(text_surf, text_surf.get_rect(center=self.image.get_rect().center))
 
+
+class ClickableTextWindow(TextWindow):
+    """Text window that returns a value when on_click() is called"""
+    def __init__(self, color, aspect_ratio: tuple, pos: tuple, padding: float, text: str):
+        super().__init__(color, aspect_ratio, pos, padding, text)
+
+    def on_click(self):
+        return self.text
