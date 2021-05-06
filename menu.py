@@ -1,7 +1,7 @@
 import pygame
 from pygame import freetype
 from constants import *
-from window_sizing import ScaleWindow, AspectWindow, TextWindow
+from window_sizing import AspectWindow, TextWindow
 
 
 def menu(screen):
@@ -13,7 +13,7 @@ def menu(screen):
     game_space = AspectWindow(GREEN, (1, 1), (4.5/16, 0.5), 0.9)
     start = TextWindow(RED, (16, 7), (0.5, 0.5), 0.3, "Start")
     info_space = AspectWindow(WHITE, (7, 9), (12.5/16, 0.5), 0.8)
-    title = TextWindow(RED, (16, 5), (0.5, 0.2), 0.8, "Snake")
+    title = TextWindow(RED, (16, 5), (0.5, 0.2), 0.8, "Title")
 
     pygame.event.post(pygame.event.Event(pygame.VIDEORESIZE, {'w': 500, 'h': 300}))
     while True:
@@ -33,10 +33,9 @@ def menu(screen):
                 title.resize(info_space.image)
 
             if event.type == pygame.MOUSEBUTTONUP:
-                print(title.rect.collidepoint(pygame.mouse.get_pos()), pygame.mouse.get_pos(),title.image.get_rect(), title.rect)
-
-                if title.rect.collidepoint(pygame.mouse.get_pos()):
-                    print(2)
+                if start.rect.collidepoint(pygame.mouse.get_pos()):
+                    # the menus job is done
+                    return screen
 
         # blit the child surface onto the parent surface, at a position relative to the parent
         screen.blit(window.image, (window.rect.x, window.rect.y))
@@ -44,7 +43,7 @@ def menu(screen):
         window.image.blit(game_space.image, (game_space.rect.x, game_space.rect.y))
         window.image.blit(info_space.image, (info_space.rect.x, info_space.rect.y))
         info_space.image.blit(title.image, (title.rect.x, title.rect.y))
-        game_space.image.blit(start.image, (start.rect.x, start.rect.y))
+        window.image.blit(start.image, (start.rect.x, start.rect.y))
 
         pygame.display.update()
         clock.tick(30)

@@ -12,6 +12,6 @@ if __name__ == "__main__":
     # when menu is done it will return the state of the screen
     main_screen = menu.menu(main_screen)
 
-    main_screen = game.game(main_screen)
+    _ = game.game(main_screen)
 
     pygame.quit()
